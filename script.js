@@ -44,15 +44,15 @@ function initializeGraph() {
         selector: 'node',
         style: {
           'label': 'data(label)',
-          'width': '120', /* Увеличение ширины узлов для более крупного текста */
-          'height': '120', /* Увеличение высоты узлов */
+          'width': '100', /* Размеры узлов */
+          'height': '100',
           'background-color': '#61bffc',
           'text-valign': 'center',
           'text-halign': 'center',
           'color': '#ffffff',
           'font-size': '14px',
           'text-wrap': 'wrap',
-          'text-max-width': '110px', /* Максимальная ширина текста для узлов */
+          'text-max-width': '100px',
           'overlay-padding': '6px',
           'z-index': '10'
         }
@@ -73,19 +73,19 @@ function initializeGraph() {
       {
         selector: 'edge',
         style: {
-          'width': 3,
-          'line-color': '#cccccc',
-          'target-arrow-color': '#cccccc',
+          'width': 4, /* Увеличенная толщина линий для улучшенной видимости */
+          'line-color': '#888',
+          'target-arrow-color': '#888',
           'target-arrow-shape': 'triangle',
           'curve-style': 'bezier'
         }
       }
     ],
     layout: {
-      name: 'cose-bilkent', // Более компактная и удобная раскладка
-      idealEdgeLength: 90,
-      nodeRepulsion: 4500,
-      padding: 40,
+      name: 'breadthfirst', // Иерархическая раскладка
+      directed: true,
+      padding: 10,
+      spacingFactor: 1.5, // Более плотная компоновка
       animate: true
     }
   });
