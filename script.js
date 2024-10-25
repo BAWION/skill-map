@@ -123,7 +123,7 @@ const svg = d3.select("#tree-container").append("svg")
 
 // Создание дерева
 const treemap = d3.tree()
-    .size([2 * Math.PI, Math.min(width, height) / 2 - 100]); // Радиальная раскладка
+    .size([2 * Math.PI, Math.min(width, height) / 2 - 150]); // Радиальная раскладка
 
 // Создание иерархической структуры
 let root = d3.hierarchy(treeData);
