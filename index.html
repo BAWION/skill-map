@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Карта навыков</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- HTML-код для карты навыков -->
+  <div id="skill-map-container">
+    <!-- Контейнер для формы выбора навыков -->
+    <div id="skill-selector">
+      <h3>Выберите свои текущие навыки:</h3>
+      <!-- Список навыков для выбора -->
+      <label><input type="checkbox" value="basic_logic"> Базовая логика</label><br>
+      <label><input type="checkbox" value="creativity"> Креативность</label><br>
+      <label><input type="checkbox" value="communication"> Коммуникация</label><br>
+    </div>
+
+    <!-- Контейнер для графа навыков -->
+    <div id="skill-graph"></div>
+  </div>
+
+  <!-- Подключение Cytoscape.js -->
+  <script src="https://unpkg.com/cytoscape@3.19.1/dist/cytoscape.min.js"></script>
+  <!-- Подключение вашего скрипта -->
+  <script src="script.js"></script>
+</body>
+</html>
