@@ -1,13 +1,66 @@
-// Инициализация данных дерева
-let treeData = {
-    name: "Мои навыки",
-    children: []
+// Данные дерева навыков
+const treeData = {
+    name: "Базовые навыки",
+    children: [
+        {
+            name: "Языки программирования",
+            children: [
+                {
+                    name: "Python",
+                    children: [
+                        { name: "Машинное обучение" },
+                        { name: "Веб-разработка" },
+                        { name: "Анализ данных" }
+                    ]
+                },
+                {
+                    name: "JavaScript",
+                    children: [
+                        { name: "Веб-фронтенд" },
+                        { name: "Node.js" },
+                        { name: "React" }
+                    ]
+                }
+            ]
+        },
+        {
+            name: "Иностранные языки",
+            children: [
+                {
+                    name: "Английский язык",
+                    children: [
+                        { name: "Базовый уровень" },
+                        { name: "Продвинутый уровень" },
+                        { name: "Технический английский" }
+                    ]
+                },
+                {
+                    name: "Испанский язык",
+                    children: [
+                        { name: "Базовый уровень" },
+                        { name: "Разговорный уровень" }
+                    ]
+                }
+            ]
+        },
+        {
+            name: "Менеджмент",
+            children: [
+                { name: "Управление проектами" },
+                { name: "Лидерство" },
+                { name: "Коммуникация" }
+            ]
+        },
+        {
+            name: "Творческие навыки",
+            children: [
+                { name: "Фотография" },
+                { name: "Графический дизайн" },
+                { name: "Письменное творчество" }
+            ]
+        }
+    ]
 };
-
-// Проверка наличия сохраненных данных
-if (localStorage.getItem('treeData')) {
-    treeData = JSON.parse(localStorage.getItem('treeData'));
-}
 
 // Установка размеров и переменных
 const margin = { top: 20, right: 90, bottom: 30, left: 90 },
@@ -18,27 +71,35 @@ let i = 0,
     duration = 750,
     root;
 
-let selectedNode = null;
-
-// Создание SVG
+// Создание SVG-контейнера
 const svg = d3.select("#tree-container").append("svg")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
-    .on("click", function() {
-        // Сброс выбранного узла при клике по области вне узлов
-        selectedNode = null;
-        d3.selectAll('circle').style('stroke', 'steelblue');
-    })
     .append("g")
     .attr("transform", `translate(${margin.left},${margin.top})`);
 
 // Создание дерева
 const treemap = d3.tree().size([height, width]);
 
-// Назначение корня
+// Назначение корня дерева
 root = d3.hierarchy(treeData, d => d.children);
 root.x0 = height / 2;
 root.y0 = 0;
+
+// Сворачиваем узлы по умолчанию
+root.children.forEach(collapse);
+
+// Обновление дерева
+update(root);
+
+// Функция сворачивания узлов
+function collapse(d) {
+    if(d.children) {
+        d._children = d.children;
+        d._children.forEach(collapse);
+        d.children = null;
+    }
+}
 
 // Функция обновления дерева
 function update(source) {
@@ -47,7 +108,7 @@ function update(source) {
 
     // Узлы и связи
     const nodes = treeData.descendants(),
-        links = treeData.links();
+        links = treeData.descendants().slice(1);
 
     // Устанавливаем позиции узлов
     nodes.forEach(d => { d.y = d.depth * 180 });
@@ -60,10 +121,7 @@ function update(source) {
     const nodeEnter = node.enter().append('g')
         .attr('class', 'node')
         .attr('transform', d => `translate(${source.y0},${source.x0})`)
-        .on('click', function(event, d) {
-            event.stopPropagation(); // Предотвращаем всплытие события
-            click(event, d);
-        });
+        .on('click', click);
 
     // Добавляем круги
     nodeEnter.append('circle')
@@ -89,14 +147,8 @@ function update(source) {
     // Обновляем круги
     nodeUpdate.select('circle.node')
         .attr('r', 10)
-        .style('fill', d => {
-            if (d === selectedNode) {
-                return "orange";
-            }
-            return d._children ? "lightsteelblue" : "#fff";
-        })
-        .attr('cursor', 'pointer')
-        .style('stroke', d => d === selectedNode ? 'orange' : 'steelblue');
+        .style('fill', d => d._children ? "lightsteelblue" : "#fff")
+        .attr('cursor', 'pointer');
 
     // Удаляем узлы
     const nodeExit = node.exit().transition()
@@ -112,7 +164,7 @@ function update(source) {
 
     // Связи
     const link = svg.selectAll('path.link')
-        .data(links, d => d.target.id);
+        .data(links, d => d.id);
 
     // Входим в новые связи
     const linkEnter = link.enter().insert('path', "g")
@@ -127,7 +179,7 @@ function update(source) {
 
     linkUpdate.transition()
         .duration(duration)
-        .attr('d', d => diagonal(d.source, d.target));
+        .attr('d', d => diagonal(d, d.parent));
 
     // Удаляем связи
     const linkExit = link.exit().transition()
@@ -154,46 +206,13 @@ function update(source) {
 
     // Обработчик клика по узлу
     function click(event, d) {
-        // Обновляем выбранный узел
-        selectedNode = d;
-        // Обновляем цвета узлов
-        svg.selectAll('circle').style('stroke', node => node === selectedNode ? 'orange' : 'steelblue');
+        if (d.children) {
+            d._children = d.children;
+            d.children = null;
+        } else {
+            d.children = d._children;
+            d._children = null;
+        }
         update(d);
     }
-
-    // Сохраняем данные в localStorage
-    localStorage.setItem('treeData', JSON.stringify(root.data));
-}
-
-// Инициализируем дерево
-update(root);
-
-// Добавляем обработчик формы
-document.getElementById('skill-form').addEventListener('submit', function(event) {
-    event.preventDefault();
-    const skillName = document.getElementById('skill-input').value.trim();
-    if (skillName) {
-        addSkill(skillName);
-        document.getElementById('skill-input').value = '';
-    }
-});
-
-// Функция добавления навыка
-function addSkill(skillName) {
-    const targetNode = selectedNode ? selectedNode : root;
-    if (!targetNode.data.children) {
-        targetNode.data.children = [];
-    }
-    // Проверяем, есть ли уже такой навык
-    const existingSkill = targetNode.data.children.find(child => child.name === skillName);
-    if (existingSkill) {
-        alert('Этот навык уже добавлен к выбранному узлу.');
-        return;
-    }
-    targetNode.data.children.push({ name: skillName });
-    // Обновляем дерево
-    root = d3.hierarchy(root.data, d => d.children);
-    root.x0 = height / 2;
-    root.y0 = 0;
-    update(targetNode);
 }
