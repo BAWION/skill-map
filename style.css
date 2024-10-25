@@ -17,3 +17,19 @@ h1 {
     background-color: #ffffff;
     border: 1px solid #ccc;
 }
+
+input[type="checkbox"] {
+    margin-right: 10px;
+}
+
+/* Стиль для выделенных узлов */
+.selected {
+    border-color: #ffa500;
+    border-width: 3px;
+}
+
+/* Стиль для доступных узлов */
+.available {
+    border-color: #28a745;
+    border-width: 3px;
+}
