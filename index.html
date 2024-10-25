@@ -1,21 +1,14 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Карта Навыков</title>
-    <link rel="stylesheet" href="style.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/cytoscape/3.21.0/cytoscape.min.js"></script>
-    <script src="script.js" defer></script>
+  <meta charset="UTF-8">
+  <title>Карта навыков</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Выберите свои текущие навыки:</h1>
-    <div id="skill-selector">
-        <label><input type="checkbox" value="basic_skills"> Базовые навыки</label><br>
-        <label><input type="checkbox" value="logic"> Логика</label><br>
-        <label><input type="checkbox" value="creativity"> Креативность</label><br>
-        <label><input type="checkbox" value="communication"> Коммуникация</label><br>
-    </div>
-    <div id="skill-graph" style="height: 600px; width: 100%; border: 1px solid #ccc; margin-top: 20px;"></div>
+  <div id="tree-container"></div>
+  <!-- Подключение D3.js или другой библиотеки -->
+  <script src="https://d3js.org/d3.v6.min.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
