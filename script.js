@@ -18,6 +18,8 @@ let selectedSkills = [];
 
 // Функция для инициализации графа
 function initializeGraph() {
+  console.log('Инициализация графа...');
+  
   // Преобразуем данные навыков в формат элементов Cytoscape
   const elements = [];
 
@@ -34,6 +36,8 @@ function initializeGraph() {
       });
     });
   });
+
+  console.log('Элементы для графа:', elements);
 
   // Инициализируем Cytoscape
   try {
@@ -91,6 +95,8 @@ function initializeGraph() {
       }
     });
 
+    console.log('Граф успешно инициализирован');
+    
     // Добавляем обработчик клика на узлы для показа подробного описания навыка
     cy.on('tap', 'node', function(evt){
       var node = evt.target;
@@ -152,7 +158,9 @@ function onSkillSelected(skillId) {
 
 // Инициализация
 document.addEventListener('DOMContentLoaded', function() {
+  console.log('Документ загружен, инициализируем граф...');
   initializeGraph();
+  
   // Обработчики для чекбоксов
   document.querySelectorAll('#skill-selector input[type="checkbox"]').forEach(input => {
     input.addEventListener('change', function() {
