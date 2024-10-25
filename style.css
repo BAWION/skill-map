@@ -1,27 +1,19 @@
-/* Стили для контейнера */
-#skill-map-container {
-  width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+    margin: 0;
+    padding: 20px;
 }
 
-/* Стили для формы выбора навыков */
+h1 {
+    color: #333;
+}
+
 #skill-selector {
-  margin-bottom: 20px;
+    margin-bottom: 20px;
 }
 
-#skill-selector h3 {
-  font-size: 20px;
-  margin-bottom: 10px;
-}
-
-#skill-selector label {
-  font-size: 16px;
-}
-
-/* Стили для графа навыков */
 #skill-graph {
-  width: 100%;
-  height: 800px; /* Увеличение высоты контейнера для графа */
-  border: 1px solid #ccc;
+    background-color: #ffffff;
+    border: 1px solid #ccc;
 }
