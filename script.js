@@ -45,15 +45,15 @@ function initializeGraph() {
           selector: 'node',
           style: {
             'label': 'data(label)',
-            'width': '80',
-            'height': '80',
+            'width': '120',  // Увеличим размеры узлов
+            'height': '120',
             'background-color': '#61bffc',
             'text-valign': 'center',
             'text-halign': 'center',
             'color': '#ffffff',
-            'font-size': '14px',
-            'text-wrap': 'wrap',
-            'text-max-width': '80px'
+            'font-size': '16px',
+            'text-wrap': 'wrap',  // Обертка текста
+            'text-max-width': '100px'
           }
         },
         {
@@ -68,8 +68,11 @@ function initializeGraph() {
         }
       ],
       layout: {
-        name: 'grid', // Простая раскладка, чтобы проверить отображение
-        rows: 3
+        name: 'cose',  // Используем раскладку cose для лучшей наглядности
+        idealEdgeLength: 100,
+        nodeRepulsion: 4000,
+        padding: 20,
+        animate: true
       }
     });
 
