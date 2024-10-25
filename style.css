@@ -30,25 +30,8 @@ h1, p {
     fill: #333;
 }
 
-.node--internal circle {
-    fill: lightsteelblue;
-}
-
 .link {
     fill: none;
     stroke: #ccc;
     stroke-width: 2px;
-}
-
-.tooltip {
-    position: absolute;
-    text-align: center;
-    padding: 6px;
-    font-size: 12px;
-    background: lightsteelblue;
-    border: 1px solid #333;
-    border-radius: 4px;
-    pointer-events: none;
-    opacity: 0;
-    transition: opacity 0.3s;
 }
