@@ -1,12 +1,24 @@
 // Данные навыков
 const skills = [
-  { id: 'basic_logic', label: 'Базовая логика', level: 1, parents: [], description: 'Основные навыки логики, важные для аналитического мышления.' },
-  { id: 'math', label: 'Математика', level: 2, parents: ['basic_logic'], description: 'Математика - это основа для развития инженерных и аналитических навыков.' },
-  { id: 'programming', label: 'Программирование', level: 3, parents: ['math'], description: 'Программирование позволяет создавать компьютерные программы и решать сложные задачи.' },
-  { id: 'creativity', label: 'Креативность', level: 1, parents: [], description: 'Креативное мышление - основа для разработки новых идей и решений.' },
-  { id: 'art', label: 'Искусство', level: 2, parents: ['creativity'], description: 'Искусство помогает развивать творческое мышление и визуальное восприятие.' },
-  { id: 'communication', label: 'Коммуникация', level: 1, parents: [], description: 'Эффективное общение - ключевой навык для работы в команде и построения отношений.' },
-  { id: 'public_speaking', label: 'Публичные выступления', level: 2, parents: ['communication'], description: 'Навык публичных выступлений необходим для презентаций и убеждения аудитории.' }
+  { id: 'basic_skills', label: 'Базовые навыки', level: 1, parents: [], description: 'Основные навыки, которые формируют фундамент для дальнейшего развития.' },
+  { id: 'logic', label: 'Логика', level: 2, parents: ['basic_skills'], description: 'Развитие логического мышления.' },
+  { id: 'math', label: 'Математика', level: 3, parents: ['logic'], description: 'Математика помогает в аналитическом мышлении и решении задач.' },
+  { id: 'algebra', label: 'Алгебра', level: 4, parents: ['math'], description: 'Алгебра - основа математических расчетов.' },
+  { id: 'geometry', label: 'Геометрия', level: 4, parents: ['math'], description: 'Геометрия - развитие пространственного мышления.' },
+  { id: 'statistics', label: 'Статистика', level: 4, parents: ['math'], description: 'Статистика необходима для анализа данных.' },
+  { id: 'programming', label: 'Программирование', level: 3, parents: ['logic'], description: 'Программирование для создания компьютерных решений.' },
+  { id: 'algorithms', label: 'Алгоритмы', level: 4, parents: ['programming'], description: 'Алгоритмы - это основа для создания эффективных решений.' },
+  { id: 'data_structures', label: 'Структуры данных', level: 4, parents: ['programming'], description: 'Структуры данных - важный элемент программирования.' },
+  { id: 'communication', label: 'Коммуникация', level: 2, parents: ['basic_skills'], description: 'Эффективное общение в команде.' },
+  { id: 'public_speaking', label: 'Публичные выступления', level: 3, parents: ['communication'], description: 'Публичные выступления помогают выражать свои идеи.' },
+  { id: 'negotiation', label: 'Переговоры', level: 3, parents: ['communication'], description: 'Переговоры - важный навык для достижения согласия.' },
+  { id: 'creativity', label: 'Креативность', level: 2, parents: ['basic_skills'], description: 'Развитие творческих навыков.' },
+  { id: 'music', label: 'Музыка', level: 3, parents: ['creativity'], description: 'Музыка - форма творческого самовыражения.' },
+  { id: 'instrument', label: 'Игра на инструменте', level: 4, parents: ['music'], description: 'Игра на музыкальных инструментах развивает моторику и творческое мышление.' },
+  { id: 'composition', label: 'Композиция', level: 4, parents: ['music'], description: 'Композиция - создание музыкальных произведений.' },
+  { id: 'art', label: 'Искусство', level: 3, parents: ['creativity'], description: 'Искусство помогает выражать эмоции и идеи.' },
+  { id: 'painting', label: 'Живопись', level: 4, parents: ['art'], description: 'Живопись - визуальное самовыражение.' },
+  { id: 'design', label: 'Дизайн', level: 4, parents: ['art'], description: 'Дизайн - создание визуальных решений.' }
 ];
 
 // Массив выбранных навыков
@@ -45,15 +57,15 @@ function initializeGraph() {
           selector: 'node',
           style: {
             'label': 'data(label)',
-            'width': '120',  // Увеличим размеры узлов
-            'height': '120',
+            'width': '100',  // Увеличим размеры узлов
+            'height': '100',
             'background-color': '#61bffc',
             'text-valign': 'center',
             'text-halign': 'center',
             'color': '#ffffff',
-            'font-size': '16px',
+            'font-size': '14px',
             'text-wrap': 'wrap',  // Обертка текста
-            'text-max-width': '100px'
+            'text-max-width': '90px'
           }
         },
         {
@@ -68,9 +80,9 @@ function initializeGraph() {
         }
       ],
       layout: {
-        name: 'cose',  // Используем раскладку cose для лучшей наглядности
-        idealEdgeLength: 100,
-        nodeRepulsion: 4000,
+        name: 'breadthfirst',  // Используем раскладку breadthfirst для дерева
+        directed: true,
+        spacingFactor: 1.5,
         padding: 20,
         animate: true
       }
