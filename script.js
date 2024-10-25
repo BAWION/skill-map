@@ -11,7 +11,6 @@ const skills = [
   { id: 'communication', label: 'Коммуникация', level: 1, parents: [], achievement: '' },
   { id: 'public_speaking', label: 'Публичные выступления', level: 2, parents: ['communication'], achievement: '' },
   { id: 'leadership', label: 'Лидерство', level: 3, parents: ['public_speaking'], achievement: 'Руководство командой' }
-  // Добавьте больше навыков по необходимости
 ];
 
 // Массив выбранных навыков
@@ -45,12 +44,14 @@ function initializeGraph() {
         selector: 'node',
         style: {
           'label': 'data(label)',
-          'width': 'mapData(level, 1, 5, 30, 60)',
-          'height': 'mapData(level, 1, 5, 30, 60)',
+          'width': '50', /* Увеличение ширины узлов */
+          'height': '50', /* Увеличение высоты узлов */
           'background-color': '#61bffc',
           'text-valign': 'center',
-          'color': '#fff',
-          'font-size': '12px',
+          'color': '#ffffff',
+          'font-size': '14px', /* Увеличение шрифта */
+          'text-wrap': 'wrap', /* Перенос текста для длинных названий */
+          'text-max-width': '80px', /* Максимальная ширина текста */
           'overlay-padding': '6px',
           'z-index': '10'
         }
@@ -71,18 +72,20 @@ function initializeGraph() {
       {
         selector: 'edge',
         style: {
-          'width': 2,
-          'line-color': '#ccc',
-          'target-arrow-color': '#ccc',
+          'width': 3, /* Толщина линий */
+          'line-color': '#cccccc',
+          'target-arrow-color': '#cccccc',
           'target-arrow-shape': 'triangle',
           'curve-style': 'bezier'
         }
       }
     ],
     layout: {
-      name: 'breadthfirst',
-      directed: true,
-      padding: 10
+      name: 'cose', // Раскладка для более компактного размещения узлов
+      idealEdgeLength: 100,
+      nodeOverlap: 20,
+      padding: 30,
+      animate: true
     }
   });
 
