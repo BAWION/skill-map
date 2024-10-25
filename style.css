@@ -19,9 +19,9 @@
   font-size: 16px;
 }
 
-/* Стили для графа */
+/* Стили для графа навыков */
 #skill-graph {
   width: 100%;
-  height: 600px;
+  height: 800px; /* Увеличение высоты контейнера для графа */
   border: 1px solid #ccc;
 }
