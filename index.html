@@ -2,26 +2,17 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>Интерактивная карта навыков</title>
+    <title>Карта навыков</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Интерактивная карта навыков</h1>
-    <p>Нажмите на узел, чтобы выбрать его. Затем добавьте новый навык, который будет дочерним для выбранного узла. Если узел не выбран, навык добавится к корню.</p>
-
-    <div id="form-container">
-        <h2>Добавьте свои навыки и интересы</h2>
-        <form id="skill-form">
-            <input type="text" id="skill-input" placeholder="Введите навык или интерес" required>
-            <button type="submit">Добавить</button>
-        </form>
-    </div>
-
+    <h1>Карта навыков</h1>
+    <p>Нажмите на узлы, чтобы раскрыть или свернуть ветви и просмотреть возможные пути развития.</p>
     <div id="tree-container"></div>
 
     <!-- Подключение D3.js -->
     <script src="https://d3js.org/d3.v6.min.js"></script>
-    <!-- Подключение вашего скрипта -->
+    <!-- Подключение скрипта -->
     <script src="script.js"></script>
 </body>
 </html>
