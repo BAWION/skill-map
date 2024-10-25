@@ -36,88 +36,72 @@ function initializeGraph() {
   });
 
   // Инициализируем Cytoscape
-  window.cy = cytoscape({
-    container: document.getElementById('skill-graph'),
-    elements: elements,
-    style: [
-      {
-        selector: 'node',
-        style: {
-          'label': 'data(label)',
-          'width': '100', /* Размеры узлов */
-          'height': '100',
-          'background-color': '#61bffc',
-          'text-valign': 'center',
-          'text-halign': 'center',
-          'color': '#ffffff',
-          'font-size': '14px',
-          'text-wrap': 'wrap',
-          'text-max-width': '100px',
-          'overlay-padding': '6px',
-          'z-index': '10'
+  try {
+    window.cy = cytoscape({
+      container: document.getElementById('skill-graph'),
+      elements: elements,
+      style: [
+        {
+          selector: 'node',
+          style: {
+            'label': 'data(label)',
+            'width': '100', /* Размеры узлов */
+            'height': '100',
+            'background-color': '#61bffc',
+            'text-valign': 'center',
+            'text-halign': 'center',
+            'color': '#ffffff',
+            'font-size': '14px',
+            'text-wrap': 'wrap',
+            'text-max-width': '100px',
+            'overlay-padding': '6px',
+            'z-index': '10'
+          }
+        },
+        {
+          selector: 'node.selected',
+          style: {
+            'background-color': '#28a745'
+          }
+        },
+        {
+          selector: 'node.available',
+          style: {
+            'border-color': '#ffc107',
+            'border-width': '4px'
+          }
+        },
+        {
+          selector: 'edge',
+          style: {
+            'width': 4, /* Толщина линий */
+            'line-color': '#888',
+            'target-arrow-color': '#888',
+            'target-arrow-shape': 'triangle',
+            'curve-style': 'bezier'
+          }
         }
-      },
-      {
-        selector: 'node.selected',
-        style: {
-          'background-color': '#28a745'
-        }
-      },
-      {
-        selector: 'node.available',
-        style: {
-          'border-color': '#ffc107',
-          'border-width': '4px'
-        }
-      },
-      {
-        selector: 'edge',
-        style: {
-          'width': 4, /* Увеличенная толщина линий для улучшенной видимости */
-          'line-color': '#888',
-          'target-arrow-color': '#888',
-          'target-arrow-shape': 'triangle',
-          'curve-style': 'bezier'
-        }
+      ],
+      layout: {
+        name: 'cose', // Надежная раскладка для улучшенной визуализации
+        idealEdgeLength: 100,
+        nodeRepulsion: 4000,
+        padding: 20,
+        animate: true
       }
-    ],
-    layout: {
-      name: 'breadthfirst', // Иерархическая раскладка
-      directed: true,
-      padding: 10,
-      spacingFactor: 1.5, // Более плотная компоновка
-      animate: true
-    }
-  });
+    });
 
-  // Добавляем обработчик клика на узлы для показа подробного описания навыка
-  cy.on('tap', 'node', function(evt){
-    var node = evt.target;
-    var description = node.data('description');
-    alert('Навык: ' + node.data('label') + '\nОписание: ' + description);
-  });
+    // Добавляем обработчик клика на узлы для показа подробного описания навыка
+    cy.on('tap', 'node', function(evt){
+      var node = evt.target;
+      var description = node.data('description');
+      alert('Навык: ' + node.data('label') + '\nОписание: ' + description);
+    });
 
-  // Добавляем всплывающие подсказки при наведении на узлы
-  cy.on('mouseover', 'node', function(evt){
-    var node = evt.target;
-    node.qtip({
-      content: {
-        text: node.data('description'),
-        title: node.data('label')
-      },
-      position: {
-        my: 'top center',
-        at: 'bottom center'
-      },
-      style: {
-        classes: 'qtip-bootstrap',
-        tip: {
-          width: 16,
-          height: 8
-        }
-      }
-    }, evt);
-  });
+  } catch (error) {
+    console.error('Ошибка инициализации графа:', error);
+    alert('Произошла ошибка при инициализации графа. Проверьте консоль для получения дополнительной информации.');
+  }
 }
 
 // Функция обновления стилей узлов
