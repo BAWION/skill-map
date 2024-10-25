@@ -1,0 +1,27 @@
+/* Стили для контейнера */
+#skill-map-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Стили для формы выбора навыков */
+#skill-selector {
+  margin-bottom: 20px;
+}
+
+#skill-selector h3 {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+#skill-selector label {
+  font-size: 16px;
+}
+
+/* Стили для графа */
+#skill-graph {
+  width: 100%;
+  height: 600px;
+  border: 1px solid #ccc;
+}
