@@ -1,30 +1,22 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Карта навыков</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Карта Навыков</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/cytoscape@3.21.0/dist/cytoscape.min.js"></script>
+    <script src="https://unpkg.com/qtip2@3.0.3/dist/jquery.qtip.min.js"></script>
+    <script src="https://unpkg.com/cytoscape-qtip@2.7.1/cytoscape-qtip.min.js"></script>
+    <script src="script.js" defer></script>
 </head>
 <body>
-  <!-- HTML-код для карты навыков -->
-  <div id="skill-map-container">
-    <!-- Контейнер для формы выбора навыков -->
+    <h1>Выберите свои текущие навыки:</h1>
     <div id="skill-selector">
-      <h3>Выберите свои текущие навыки:</h3>
-      <!-- Список навыков для выбора -->
-      <label><input type="checkbox" value="basic_logic"> Базовая логика</label><br>
-      <label><input type="checkbox" value="creativity"> Креативность</label><br>
-      <label><input type="checkbox" value="communication"> Коммуникация</label><br>
+        <label><input type="checkbox" value="basic_logic"> Базовая логика</label><br>
+        <label><input type="checkbox" value="creativity"> Креативность</label><br>
+        <label><input type="checkbox" value="communication"> Коммуникация</label><br>
     </div>
-
-    <!-- Контейнер для графа навыков -->
-    <div id="skill-graph"></div>
-  </div>
-
-  <!-- Подключение библиотеки Cytoscape.js -->
-  <script src="https://unpkg.com/cytoscape@3.19.1/dist/cytoscape.min.js"></script>
-  <!-- Подключение вашего скрипта -->
-  <script src="script.js"></script>
+    <div id="skill-graph" style="height: 600px; width: 100%; border: 1px solid #ccc; margin-top: 20px;"></div>
 </body>
 </html>
