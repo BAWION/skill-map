@@ -3,14 +3,10 @@ const skills = [
   { id: 'basic_logic', label: 'Базовая логика', level: 1, parents: [], description: 'Основные навыки логики, важные для аналитического мышления.' },
   { id: 'math', label: 'Математика', level: 2, parents: ['basic_logic'], description: 'Математика - это основа для развития инженерных и аналитических навыков.' },
   { id: 'programming', label: 'Программирование', level: 3, parents: ['math'], description: 'Программирование позволяет создавать компьютерные программы и решать сложные задачи.' },
-  { id: 'advanced_programming', label: 'Продвинутое программирование', level: 4, parents: ['programming'], description: 'Развитие навыков программирования на продвинутом уровне, включая алгоритмы и структуры данных.' },
-  { id: 'innovation', label: 'Инновации в ИТ', level: 5, parents: ['advanced_programming'], description: 'Создание инновационных решений, например, запуск ИТ-стартапа.' },
   { id: 'creativity', label: 'Креативность', level: 1, parents: [], description: 'Креативное мышление - основа для разработки новых идей и решений.' },
   { id: 'art', label: 'Искусство', level: 2, parents: ['creativity'], description: 'Искусство помогает развивать творческое мышление и визуальное восприятие.' },
-  { id: 'design', label: 'Дизайн', level: 3, parents: ['art'], description: 'Навыки дизайна позволяют создавать визуальные проекты, важные для маркетинга и интерфейсов.' },
   { id: 'communication', label: 'Коммуникация', level: 1, parents: [], description: 'Эффективное общение - ключевой навык для работы в команде и построения отношений.' },
-  { id: 'public_speaking', label: 'Публичные выступления', level: 2, parents: ['communication'], description: 'Навык публичных выступлений необходим для презентаций и убеждения аудитории.' },
-  { id: 'leadership', label: 'Лидерство', level: 3, parents: ['public_speaking'], description: 'Лидерство включает в себя управление командой и принятие стратегических решений.' }
+  { id: 'public_speaking', label: 'Публичные выступления', level: 2, parents: ['communication'], description: 'Навык публичных выступлений необходим для презентаций и убеждения аудитории.' }
 ];
 
 // Массив выбранных навыков
@@ -19,7 +15,7 @@ let selectedSkills = [];
 // Функция для инициализации графа
 function initializeGraph() {
   console.log('Инициализация графа...');
-  
+
   // Преобразуем данные навыков в формат элементов Cytoscape
   const elements = [];
 
@@ -49,36 +45,21 @@ function initializeGraph() {
           selector: 'node',
           style: {
             'label': 'data(label)',
-            'width': '100', /* Размеры узлов */
-            'height': '100',
+            'width': '80',
+            'height': '80',
             'background-color': '#61bffc',
             'text-valign': 'center',
             'text-halign': 'center',
             'color': '#ffffff',
             'font-size': '14px',
             'text-wrap': 'wrap',
-            'text-max-width': '100px',
-            'overlay-padding': '6px',
-            'z-index': '10'
-          }
-        },
-        {
-          selector: 'node.selected',
-          style: {
-            'background-color': '#28a745'
-          }
-        },
-        {
-          selector: 'node.available',
-          style: {
-            'border-color': '#ffc107',
-            'border-width': '4px'
+            'text-max-width': '80px'
           }
         },
         {
           selector: 'edge',
           style: {
-            'width': 4, /* Толщина линий */
+            'width': 3,
             'line-color': '#888',
             'target-arrow-color': '#888',
             'target-arrow-shape': 'triangle',
@@ -87,11 +68,8 @@ function initializeGraph() {
         }
       ],
       layout: {
-        name: 'cose', // Надежная раскладка для улучшенной визуализации
-        idealEdgeLength: 100,
-        nodeRepulsion: 4000,
-        padding: 20,
-        animate: true
+        name: 'grid', // Простая раскладка, чтобы проверить отображение
+        rows: 3
       }
     });
 
@@ -110,12 +88,22 @@ function initializeGraph() {
   }
 }
 
+// Обработчик выбора навыков
+function onSkillSelected(skillId) {
+  if (!selectedSkills.includes(skillId)) {
+    selectedSkills.push(skillId);
+  } else {
+    selectedSkills = selectedSkills.filter(id => id !== skillId);
+  }
+  updateNodeStyles();
+  updateAvailableSkills();
+}
+
 // Функция обновления стилей узлов
 function updateNodeStyles() {
   cy.nodes().forEach(node => {
     if (selectedSkills.includes(node.id())) {
       node.addClass('selected');
-      node.removeClass('available');
     } else {
       node.removeClass('selected');
     }
@@ -143,17 +131,6 @@ function updateAvailableSkills() {
       node.removeClass('available');
     }
   });
-}
-
-// Обработчик выбора навыков
-function onSkillSelected(skillId) {
-  if (!selectedSkills.includes(skillId)) {
-    selectedSkills.push(skillId);
-  } else {
-    selectedSkills = selectedSkills.filter(id => id !== skillId);
-  }
-  updateNodeStyles();
-  updateAvailableSkills();
 }
 
 // Инициализация
