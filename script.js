@@ -44,14 +44,15 @@ function initializeGraph() {
         selector: 'node',
         style: {
           'label': 'data(label)',
-          'width': '50', /* Увеличение ширины узлов */
-          'height': '50', /* Увеличение высоты узлов */
+          'width': '80', /* Увеличение ширины узлов */
+          'height': '80', /* Увеличение высоты узлов */
           'background-color': '#61bffc',
           'text-valign': 'center',
+          'text-halign': 'center',
           'color': '#ffffff',
-          'font-size': '14px', /* Увеличение шрифта */
+          'font-size': '16px', /* Увеличение шрифта */
           'text-wrap': 'wrap', /* Перенос текста для длинных названий */
-          'text-max-width': '80px', /* Максимальная ширина текста */
+          'text-max-width': '100px', /* Максимальная ширина текста */
           'overlay-padding': '6px',
           'z-index': '10'
         }
@@ -82,8 +83,8 @@ function initializeGraph() {
     ],
     layout: {
       name: 'cose', // Раскладка для более компактного размещения узлов
-      idealEdgeLength: 100,
-      nodeOverlap: 20,
+      idealEdgeLength: 120,
+      nodeOverlap: 10,
       padding: 30,
       animate: true
     }
