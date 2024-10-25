@@ -1,16 +1,16 @@
 // Данные навыков
 const skills = [
-  { id: 'basic_logic', label: 'Базовая логика', level: 1, parents: [], achievement: '' },
-  { id: 'math', label: 'Математика', level: 2, parents: ['basic_logic'], achievement: '' },
-  { id: 'programming', label: 'Программирование', level: 3, parents: ['math'], achievement: '' },
-  { id: 'advanced_programming', label: 'Продвинутое программирование', level: 4, parents: ['programming'], achievement: '' },
-  { id: 'innovation', label: 'Инновации в ИТ', level: 5, parents: ['advanced_programming'], achievement: 'Создание ИТ-стартапа' },
-  { id: 'creativity', label: 'Креативность', level: 1, parents: [], achievement: '' },
-  { id: 'art', label: 'Искусство', level: 2, parents: ['creativity'], achievement: '' },
-  { id: 'design', label: 'Дизайн', level: 3, parents: ['art'], achievement: '' },
-  { id: 'communication', label: 'Коммуникация', level: 1, parents: [], achievement: '' },
-  { id: 'public_speaking', label: 'Публичные выступления', level: 2, parents: ['communication'], achievement: '' },
-  { id: 'leadership', label: 'Лидерство', level: 3, parents: ['public_speaking'], achievement: 'Руководство командой' }
+  { id: 'basic_logic', label: 'Базовая логика', level: 1, parents: [], description: 'Основные навыки логики, важные для аналитического мышления.' },
+  { id: 'math', label: 'Математика', level: 2, parents: ['basic_logic'], description: 'Математика - это основа для развития инженерных и аналитических навыков.' },
+  { id: 'programming', label: 'Программирование', level: 3, parents: ['math'], description: 'Программирование позволяет создавать компьютерные программы и решать сложные задачи.' },
+  { id: 'advanced_programming', label: 'Продвинутое программирование', level: 4, parents: ['programming'], description: 'Развитие навыков программирования на продвинутом уровне, включая алгоритмы и структуры данных.' },
+  { id: 'innovation', label: 'Инновации в ИТ', level: 5, parents: ['advanced_programming'], description: 'Создание инновационных решений, например, запуск ИТ-стартапа.' },
+  { id: 'creativity', label: 'Креативность', level: 1, parents: [], description: 'Креативное мышление - основа для разработки новых идей и решений.' },
+  { id: 'art', label: 'Искусство', level: 2, parents: ['creativity'], description: 'Искусство помогает развивать творческое мышление и визуальное восприятие.' },
+  { id: 'design', label: 'Дизайн', level: 3, parents: ['art'], description: 'Навыки дизайна позволяют создавать визуальные проекты, важные для маркетинга и интерфейсов.' },
+  { id: 'communication', label: 'Коммуникация', level: 1, parents: [], description: 'Эффективное общение - ключевой навык для работы в команде и построения отношений.' },
+  { id: 'public_speaking', label: 'Публичные выступления', level: 2, parents: ['communication'], description: 'Навык публичных выступлений необходим для презентаций и убеждения аудитории.' },
+  { id: 'leadership', label: 'Лидерство', level: 3, parents: ['public_speaking'], description: 'Лидерство включает в себя управление командой и принятие стратегических решений.' }
 ];
 
 // Массив выбранных навыков
@@ -24,7 +24,7 @@ function initializeGraph() {
   skills.forEach(skill => {
     // Добавляем узел
     elements.push({
-      data: { id: skill.id, label: skill.label, level: skill.level, achievement: skill.achievement }
+      data: { id: skill.id, label: skill.label, description: skill.description }
     });
 
     // Добавляем ребра (связи)
@@ -44,15 +44,15 @@ function initializeGraph() {
         selector: 'node',
         style: {
           'label': 'data(label)',
-          'width': '80', /* Увеличение ширины узлов */
-          'height': '80', /* Увеличение высоты узлов */
+          'width': '120', /* Увеличение ширины узлов для более крупного текста */
+          'height': '120', /* Увеличение высоты узлов */
           'background-color': '#61bffc',
           'text-valign': 'center',
           'text-halign': 'center',
           'color': '#ffffff',
-          'font-size': '16px', /* Увеличение шрифта */
-          'text-wrap': 'wrap', /* Перенос текста для длинных названий */
-          'text-max-width': '100px', /* Максимальная ширина текста */
+          'font-size': '14px',
+          'text-wrap': 'wrap',
+          'text-max-width': '110px', /* Максимальная ширина текста для узлов */
           'overlay-padding': '6px',
           'z-index': '10'
         }
@@ -73,7 +73,7 @@ function initializeGraph() {
       {
         selector: 'edge',
         style: {
-          'width': 3, /* Толщина линий */
+          'width': 3,
           'line-color': '#cccccc',
           'target-arrow-color': '#cccccc',
           'target-arrow-shape': 'triangle',
@@ -82,23 +82,41 @@ function initializeGraph() {
       }
     ],
     layout: {
-      name: 'cose', // Раскладка для более компактного размещения узлов
-      idealEdgeLength: 120,
-      nodeOverlap: 10,
-      padding: 30,
+      name: 'cose-bilkent', // Более компактная и удобная раскладка
+      idealEdgeLength: 90,
+      nodeRepulsion: 4500,
+      padding: 40,
       animate: true
     }
   });
 
-  // Добавляем обработчик клика на узлы
+  // Добавляем обработчик клика на узлы для показа подробного описания навыка
   cy.on('tap', 'node', function(evt){
     var node = evt.target;
-    var achievement = node.data('achievement');
-    if (achievement) {
-      alert('Навык: ' + node.data('label') + '\nВозможное достижение: ' + achievement);
-    } else {
-      alert('Навык: ' + node.data('label'));
-    }
+    var description = node.data('description');
+    alert('Навык: ' + node.data('label') + '\nОписание: ' + description);
+  });
+
+  // Добавляем всплывающие подсказки при наведении на узлы
+  cy.on('mouseover', 'node', function(evt){
+    var node = evt.target;
+    node.qtip({
+      content: {
+        text: node.data('description'),
+        title: node.data('label')
+      },
+      position: {
+        my: 'top center',
+        at: 'bottom center'
+      },
+      style: {
+        classes: 'qtip-bootstrap',
+        tip: {
+          width: 16,
+          height: 8
+        }
+      }
+    }, evt);
   });
 }
 
