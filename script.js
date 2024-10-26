@@ -1,182 +1,200 @@
-// Простая версия данных для тестирования
 const treeData = {
     name: "Навыки",
     children: [
         {
             name: "Школьные знания",
+            hemisphere: "left",
             children: [
                 {
                     name: "Математика",
+                    hemisphere: "left",
                     children: [
-                        { name: "Алгебра" },
-                        { name: "Геометрия" },
-                        { name: "Тригонометрия" }
+                        { name: "Алгебра", hemisphere: "left" },
+                        { name: "Геометрия", hemisphere: "left" },
+                        { name: "Тригонометрия", hemisphere: "left" }
                     ]
                 },
                 {
                     name: "Физика",
+                    hemisphere: "left",
                     children: [
-                        { name: "Механика" },
-                        { name: "Электромагнетизм" },
-                        { name: "Оптика" }
+                        { name: "Механика", hemisphere: "left" },
+                        { name: "Электромагнетизм", hemisphere: "left" },
+                        { name: "Оптика", hemisphere: "left" }
                     ]
                 },
                 {
                     name: "Информатика",
+                    hemisphere: "left",
                     children: [
-                        { name: "Основы программирования" },
-                        { name: "Алгоритмы и структуры данных" },
-                        { name: "Решение задач" }
+                        { name: "Основы программирования", hemisphere: "left" },
+                        { name: "Алгоритмы и структуры данных", hemisphere: "left" },
+                        { name: "Решение задач", hemisphere: "left" }
                     ]
                 },
                 {
                     name: "Языки",
+                    hemisphere: "left",
                     children: [
-                        { name: "Русский язык" },
-                        { name: "Литература" },
-                        { name: "Иностранные языки" }
+                        { name: "Русский язык", hemisphere: "left" },
+                        { name: "Литература", hemisphere: "left" },
+                        { name: "Иностранные языки", hemisphere: "left" }
                     ]
                 }
             ]
         },
         {
             name: "Предрасположенности",
+            hemisphere: "left",
             children: [
                 {
                     name: "Аналитическое мышление",
+                    hemisphere: "left",
                     children: [
-                        { name: "Умение решать логические задачи" },
-                        { name: "Обработка данных" }
+                        { name: "Умение решать логические задачи", hemisphere: "left" },
+                        { name: "Обработка данных", hemisphere: "left" }
                     ]
                 },
                 {
                     name: "Креативное мышление",
+                    hemisphere: "right",
                     children: [
-                        { name: "Генерация идей" },
-                        { name: "Создание оригинального контента" }
+                        { name: "Генерация идей", hemisphere: "right" },
+                        { name: "Создание оригинального контента", hemisphere: "right" }
                     ]
                 },
                 {
                     name: "Коммуникативные навыки",
+                    hemisphere: "right",
                     children: [
-                        { name: "Эмпатия" },
-                        { name: "Публичные выступления" }
+                        { name: "Эмпатия", hemisphere: "right" },
+                        { name: "Публичные выступления", hemisphere: "right" }
                     ]
                 },
                 {
                     name: "Управленческие качества",
+                    hemisphere: "left",
                     children: [
-                        { name: "Организация процессов" },
-                        { name: "Умение делегировать" }
+                        { name: "Организация процессов", hemisphere: "left" },
+                        { name: "Умение делегировать", hemisphere: "left" }
                     ]
                 }
             ]
         },
         {
             name: "Программирование",
+            hemisphere: "left",
             children: [
                 {
                     name: "Языки программирования",
+                    hemisphere: "left",
                     children: [
-                        { name: "Python", prerequisites: ["Алгоритмы и структуры данных", "Информатика"] },
-                        { name: "JavaScript", prerequisites: ["Информатика"] },
-                        { name: "Java", prerequisites: ["Алгебра", "Информатика"] },
-                        { name: "C++", prerequisites: ["Математика", "Алгоритмы и структуры данных"] },
-                        { name: "Go", prerequisites: ["Информатика"] },
-                        { name: "Rust", prerequisites: ["Системное программирование", "Математика"] },
-                        { name: "Kotlin", prerequisites: ["Java"] }
+                        { name: "Python", hemisphere: "left" },
+                        { name: "JavaScript", hemisphere: "left" },
+                        { name: "Java", hemisphere: "left" },
+                        { name: "C++", hemisphere: "left" },
+                        { name: "Go", hemisphere: "left" },
+                        { name: "Rust", hemisphere: "left" },
+                        { name: "Kotlin", hemisphere: "left" }
                     ]
                 },
                 {
                     name: "Фреймворки",
+                    hemisphere: "left",
                     children: [
-                        { name: "Django", prerequisites: ["Python"] },
-                        { name: "React", prerequisites: ["JavaScript"] },
-                        { name: "Spring", prerequisites: ["Java"] },
-                        { name: "Qt", prerequisites: ["C++"] },
-                        { name: "Vue.js", prerequisites: ["JavaScript"] },
-                        { name: "Angular", prerequisites: ["JavaScript"] },
-                        { name: "Flask", prerequisites: ["Python"] },
-                        { name: "Express.js", prerequisites: ["JavaScript"] }
+                        { name: "Django", hemisphere: "left" },
+                        { name: "React", hemisphere: "left" },
+                        { name: "Spring", hemisphere: "left" },
+                        { name: "Qt", hemisphere: "left" },
+                        { name: "Vue.js", hemisphere: "left" },
+                        { name: "Angular", hemisphere: "left" },
+                        { name: "Flask", hemisphere: "left" },
+                        { name: "Express.js", hemisphere: "left" }
                     ]
                 },
                 {
                     name: "Базы данных",
+                    hemisphere: "left",
                     children: [
-                        { name: "MySQL", prerequisites: ["Математика", "Алгоритмы"] },
-                        { name: "PostgreSQL", prerequisites: ["Математика"] },
-                        { name: "MongoDB", prerequisites: ["Информатика"] },
-                        { name: "SQLite", prerequisites: ["Алгоритмы"] },
-                        { name: "Redis", prerequisites: ["Математика"] },
-                        { name: "OracleDB", prerequisites: ["Математика", "Базы данных"] }
+                        { name: "MySQL", hemisphere: "left" },
+                        { name: "PostgreSQL", hemisphere: "left" },
+                        { name: "MongoDB", hemisphere: "left" },
+                        { name: "SQLite", hemisphere: "left" },
+                        { name: "Redis", hemisphere: "left" },
+                        { name: "OracleDB", hemisphere: "left" }
                     ]
                 },
                 {
                     name: "Облачные технологии",
+                    hemisphere: "left",
                     children: [
-                        { name: "AWS", prerequisites: ["Базы данных", "Системное программирование"] },
-                        { name: "Azure", prerequisites: ["Системное программирование"] },
-                        { name: "Google Cloud", prerequisites: ["Математика", "Системное программирование"] },
-                        { name: "Docker", prerequisites: ["Операционные системы", "Сетевые технологии"] },
-                        { name: "Kubernetes", prerequisites: ["Docker", "Сетевые технологии"] }
+                        { name: "AWS", hemisphere: "left" },
+                        { name: "Azure", hemisphere: "left" },
+                        { name: "Google Cloud", hemisphere: "left" },
+                        { name: "Docker", hemisphere: "left" },
+                        { name: "Kubernetes", hemisphere: "left" }
                     ]
                 }
             ]
         },
         {
             name: "Иностранные языки",
+            hemisphere: "right",
             children: [
-                { name: "Английский", prerequisites: ["Школьные знания"] },
-                { name: "Немецкий", prerequisites: ["Школьные знания"] },
-                { name: "Испанский", prerequisites: ["Школьные знания"] },
-                { name: "Французский", prerequisites: ["Школьные знания"] },
-                { name: "Китайский", prerequisites: ["Школьные знания"] },
-                { name: "Японский", prerequisites: ["Школьные знания"] },
-                { name: "Итальянский", prerequisites: ["Школьные знания"] }
+                { name: "Английский", hemisphere: "right" },
+                { name: "Немецкий", hemisphere: "right" },
+                { name: "Испанский", hemisphere: "right" },
+                { name: "Французский", hemisphere: "right" },
+                { name: "Китайский", hemisphere: "right" },
+                { name: "Японский", hemisphere: "right" },
+                { name: "Итальянский", hemisphere: "right" }
             ]
         },
         {
             name: "Управление проектами",
+            hemisphere: "left",
             children: [
-                { name: "Scrum", prerequisites: ["Коммуникативные навыки", "Организация процессов"] },
-                { name: "Kanban", prerequisites: ["Управленческие качества", "Математика"] },
-                { name: "Waterfall", prerequisites: ["Организация процессов"] },
-                { name: "Agile", prerequisites: ["Креативное мышление", "Аналитическое мышление"] },
-                { name: "Lean", prerequisites: ["Аналитическое мышление", "Управленческие качества"] }
+                { name: "Scrum", hemisphere: "left" },
+                { name: "Kanban", hemisphere: "left" },
+                { name: "Waterfall", hemisphere: "left" },
+                { name: "Agile", hemisphere: "left" },
+                { name: "Lean", hemisphere: "left" }
             ]
         },
         {
             name: "Творческие навыки",
+            hemisphere: "right",
             children: [
-                { name: "Графический дизайн", prerequisites: ["Креативное мышление"] },
-                { name: "Фотография", prerequisites: ["Эстетическое восприятие"] },
-                { name: "Видео монтаж", prerequisites: ["Креативное мышление", "Фотография"] },
-                { name: "3D моделирование", prerequisites: ["Графический дизайн", "Программирование"] },
-                { name: "Анимация", prerequisites: ["Графический дизайн", "Физика (механика)"] },
-                { name: "UI/UX дизайн", prerequisites: ["Графический дизайн", "Креативное мышление"] }
+                { name: "Графический дизайн", hemisphere: "right" },
+                { name: "Фотография", hemisphere: "right" },
+                { name: "Видео монтаж", hemisphere: "right" },
+                { name: "3D моделирование", hemisphere: "right" },
+                { name: "Анимация", hemisphere: "right" },
+                { name: "UI/UX дизайн", hemisphere: "right" }
             ]
         },
         {
             name: "Личностное развитие",
+            hemisphere: "right",
             children: [
-                { name: "Эмоциональный интеллект", prerequisites: ["Коммуникативные навыки"] },
-                { name: "Публичные выступления", prerequisites: ["Коммуникативные навыки", "Эмпатия"] },
-                { name: "Критическое мышление", prerequisites: ["Аналитическое мышление"] },
-                { name: "Тайм-менеджмент", prerequisites: ["Организация процессов"] },
-                { name: "Медитация", prerequisites: ["Эмоциональный интеллект"] }
+                { name: "Эмоциональный интеллект", hemisphere: "right" },
+                { name: "Публичные выступления", hemisphere: "right" },
+                { name: "Критическое мышление", hemisphere: "right" },
+                { name: "Тайм-менеджмент", hemisphere: "left" },
+                { name: "Медитация", hemisphere: "right" }
             ]
         },
         {
             name: "Data Science",
+            hemisphere: "left",
             children: [
-                { name: "Машинное обучение", prerequisites: ["Математика", "Python"] },
-                { name: "Нейронные сети", prerequisites: ["Машинное обучение", "Статистика"] },
-                { name: "Анализ данных", prerequisites: ["Математика", "Статистика"] }
+                { name: "Машинное обучение", hemisphere: "left" },
+                { name: "Нейронные сети", hemisphere: "left" },
+                { name: "Анализ данных", hemisphere: "left" }
             ]
         }
     ]
 };
-
 // Размеры контейнера и переменные
 const margin = { top: 20, right: 90, bottom: 30, left: 90 },
       width = document.getElementById('tree-container').offsetWidth - margin.left - margin.right,
@@ -194,10 +212,10 @@ const svg = d3.select("#tree-container").append("svg")
         svg.attr("transform", event.transform);
     }))
     .append("g")
-    .attr("transform", `translate(${margin.left},${margin.top})`);
+    .attr("transform", `translate(${width / 2},${margin.top})`); // Центрируем корень дерева
 
 // Создание дерева
-const treemap = d3.tree().size([height, width]);
+const treemap = d3.tree().size([height, width / 2]); // Делаем дерево симметричным по обе стороны
 
 // Определение корня дерева
 root = d3.hierarchy(treeData, d => d.children);
@@ -225,7 +243,11 @@ function update(source) {
     const nodes = treeData.descendants(),
           links = treeData.links();
 
-    nodes.forEach(d => { d.y = d.depth * 180 });
+    // Уменьшим горизонтальные отступы и увеличим вертикальные
+    nodes.forEach(d => {
+        d.y = d.depth * (d.data.hemisphere === 'left' ? -220 : 220); // Умеренно уменьшенные горизонтальные отступы
+        d.x = d.x * 1.4; // Легко увеличенные вертикальные отступы
+    });
 
     const node = svg.selectAll('g.node')
         .data(nodes, d => d.id || (d.id = ++i));
@@ -244,7 +266,8 @@ function update(source) {
         .attr('dy', '.35em')
         .attr('x', d => d.children || d._children ? -13 : 13)
         .attr('text-anchor', d => d.children || d._children ? 'end' : 'start')
-        .text(d => d.data.name);
+        .text(d => d.data.name)
+        .call(wrap, 120);  // Вызов функции для переноса текста
 
     const nodeUpdate = nodeEnter.merge(node);
 
@@ -315,3 +338,32 @@ function update(source) {
         update(d);
     }
 }
+
+// Функция для переноса текста, если он слишком длинный
+function wrap(text, width) {
+    text.each(function() {
+        const text = d3.select(this),
+              words = text.text().split(/\s+/).reverse(),
+              lineHeight = 1.1, // Высота строки
+              x = text.attr("x"),
+              y = text.attr("y"),
+              dy = parseFloat(text.attr("dy")) || 0;
+
+        let word,
+            line = [],
+            lineNumber = 0,
+            tspan = text.text(null).append("tspan").attr("x", x).attr("y", y).attr("dy", dy + "em");
+
+        while (word = words.pop()) {
+            line.push(word);
+            tspan.text(line.join(" "));
+            if (tspan.node().getComputedTextLength() > width) {
+                line.pop();
+                tspan.text(line.join(" "));
+                line = [word];
+                tspan = text.append("tspan").attr("x", x).attr("y", y).attr("dy", ++lineNumber * lineHeight + dy + "em").text(word);
+            }
+        }
+    });
+}
+
