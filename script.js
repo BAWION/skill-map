@@ -264,8 +264,8 @@ function update(source) {
 
     nodeEnter.append('text')
         .attr('dy', '.35em')
-        .attr('x', d => d.children || d._children ? -13 : 13)
-        .attr('text-anchor', d => d.children || d._children ? 'end' : 'start')
+        .attr('x', d => d.children || d._children ? -20 : -20)  // Координаты текста перед кружком
+        .attr('text-anchor', d => 'end')  // Привязка текста по правому краю
         .text(d => d.data.name)
         .call(wrap, 120);  // Вызов функции для переноса текста
 
@@ -366,4 +366,3 @@ function wrap(text, width) {
         }
     });
 }
-
