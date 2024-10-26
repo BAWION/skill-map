@@ -1,53 +1,33 @@
 // Данные дерева навыков
 const treeData = {
-    name: "Мои Навыки",
+    name: "Базовые навыки",
     children: [
         {
-            name: "Программирование",
+            name: "Языки программирования",
             children: [
                 {
-                    name: "Языки программирования",
+                    name: "Python",
                     children: [
-                        { name: "Python" },
-                        { name: "JavaScript" },
-                        { name: "Java" },
-                        { name: "C++" }
+                        { name: "Машинное обучение" },
+                        { name: "Веб-разработка" },
+                        { name: "Анализ данных" }
                     ]
                 },
                 {
-                    name: "Фреймворки",
+                    name: "JavaScript",
                     children: [
-                        { name: "Django" },
-                        { name: "React" },
-                        { name: "Spring" },
-                        { name: "Qt" }
-                    ]
-                },
-                {
-                    name: "Базы данных",
-                    children: [
-                        { name: "MySQL" },
-                        { name: "PostgreSQL" },
-                        { name: "MongoDB" },
-                        { name: "Redis" }
-                    ]
-                },
-                {
-                    name: "Инструменты",
-                    children: [
-                        { name: "Git" },
-                        { name: "Docker" },
-                        { name: "Jenkins" },
-                        { name: "VS Code" }
+                        { name: "Веб-фронтенд" },
+                        { name: "Node.js" },
+                        { name: "React" }
                     ]
                 }
             ]
         },
         {
-            name: "Иностранные Языки",
+            name: "Иностранные языки",
             children: [
                 {
-                    name: "Английский",
+                    name: "Английский язык",
                     children: [
                         { name: "Базовый уровень" },
                         { name: "Продвинутый уровень" },
@@ -55,17 +35,10 @@ const treeData = {
                     ]
                 },
                 {
-                    name: "Немецкий",
+                    name: "Испанский язык",
                     children: [
                         { name: "Базовый уровень" },
                         { name: "Разговорный уровень" }
-                    ]
-                },
-                {
-                    name: "Испанский",
-                    children: [
-                        { name: "Базовый уровень" },
-                        { name: "Продвинутый уровень" }
                     ]
                 }
             ]
@@ -75,133 +48,112 @@ const treeData = {
             children: [
                 { name: "Управление проектами" },
                 { name: "Лидерство" },
-                { name: "Коммуникация" },
-                { name: "Стратегическое планирование" }
+                { name: "Коммуникация" }
             ]
         },
         {
-            name: "Творческие Навыки",
+            name: "Творческие навыки",
             children: [
                 { name: "Фотография" },
                 { name: "Графический дизайн" },
-                { name: "Письменное творчество" },
-                { name: "Видео монтаж" }
-            ]
-        },
-        {
-            name: "Личностное Развитие",
-            children: [
-                { name: "Эмоциональный интеллект" },
-                { name: "Публичные выступления" },
-                { name: "Критическое мышление" },
-                { name: "Тайм-менеджмент" }
-            ]
-        },
-        {
-            name: "Здоровье и Фитнес",
-            children: [
-                { name: "Йога" },
-                { name: "Плавание" },
-                { name: "Фитнес" },
-                { name: "Питание" }
+                { name: "Письменное творчество" }
             ]
         }
     ]
 };
 
 // Установка размеров и переменных
-const margin = { top: 50, right: 50, bottom: 50, left: 50 },
-      width = document.getElementById('tree-container').offsetWidth - margin.left - margin.right,
-      height = document.getElementById('tree-container').offsetHeight - margin.top - margin.bottom;
+const margin = { top: 20, right: 90, bottom: 30, left: 90 },
+    width = document.getElementById('tree-container').offsetWidth - margin.left - margin.right,
+    height = document.getElementById('tree-container').offsetHeight - margin.top - margin.bottom;
+
+let i = 0,
+    duration = 750,
+    root;
 
 // Создание SVG-контейнера
 const svg = d3.select("#tree-container").append("svg")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
-  .append("g")
-    .attr("transform", `translate(${width / 2},${height / 2})`);
+    .append("g")
+    .attr("transform", `translate(${margin.left},${margin.top})`);
 
 // Создание дерева
-const treemap = d3.tree()
-    .size([2 * Math.PI, Math.min(width, height) / 2 - 150]); // Радиальная раскладка
+const treemap = d3.tree().size([height, width]);
 
-// Создание иерархической структуры
-let root = d3.hierarchy(treeData);
+// Назначение корня дерева
+root = d3.hierarchy(treeData, d => d.children);
+root.x0 = height / 2;
+root.y0 = 0;
 
-// Сворачивание всех узлов по умолчанию
-root.descendants().forEach(d => {
-    if (d.depth && d.children) d._children = d.children;
-});
+// Сворачиваем узлы по умолчанию
+root.children.forEach(collapse);
 
 // Обновление дерева
 update(root);
 
+// Функция сворачивания узлов
+function collapse(d) {
+    if(d.children) {
+        d._children = d.children;
+        d._children.forEach(collapse);
+        d.children = null;
+    }
+}
+
 // Функция обновления дерева
 function update(source) {
-    // Генерация новой структуры дерева
+    // Вычисление новой структуры дерева
     const treeData = treemap(root);
 
     // Узлы и связи
     const nodes = treeData.descendants(),
-          links = treeData.links();
+        links = treeData.descendants().slice(1);
+
+    // Устанавливаем позиции узлов
+    nodes.forEach(d => { d.y = d.depth * 180 });
 
     // Узлы
     const node = svg.selectAll('g.node')
         .data(nodes, d => d.id || (d.id = ++i));
 
-    // Входные узлы
+    // Входим в узлы
     const nodeEnter = node.enter().append('g')
         .attr('class', 'node')
-        .attr("transform", d => `
-            rotate(${(source.x0 * 180 / Math.PI - 90)})
-            translate(${source.y0},0)
-        `)
-        .on('click', click)
-        .on('mouseover', mouseover)
-        .on('mouseout', mouseout);
+        .attr('transform', d => `translate(${source.y0},${source.x0})`)
+        .on('click', click);
 
-    // Добавление кругов
+    // Добавляем круги
     nodeEnter.append('circle')
+        .attr('class', 'node')
         .attr('r', 1e-6)
-        .style("fill", d => d._children ? "lightsteelblue" : "#fff")
-        .style("stroke", "steelblue")
-        .style("stroke-width", "2px");
+        .style('fill', d => d._children ? "lightsteelblue" : "#fff");
 
-    // Добавление текста
+    // Добавляем текст
     nodeEnter.append('text')
-        .attr("dy", "0.31em")
-        .attr("x", d => d.x < Math.PI === !d.children ? 6 : -6)
-        .attr("text-anchor", d => d.x < Math.PI === !d.children ? "start" : "end")
-        .attr("transform", d => d.x >= Math.PI ? "rotate(180)" : null)
-        .text(d => d.data.name)
-        .clone(true).lower()
-        .attr("stroke-linejoin", "round")
-        .attr("stroke-width", 3)
-        .attr("stroke", "white");
+        .attr('dy', '.35em')
+        .attr('x', d => d.children || d._children ? -13 : 13)
+        .attr('text-anchor', d => d.children || d._children ? 'end' : 'start')
+        .text(d => d.data.name);
 
-    // Объединение входных и обновленных узлов
+    // Обновление позиции узлов
     const nodeUpdate = nodeEnter.merge(node);
 
-    // Переход узлов
+    // Переход на новое положение
     nodeUpdate.transition()
-        .duration(750)
-        .attr("transform", d => `
-            rotate(${(d.x * 180 / Math.PI - 90)})
-            translate(${d.y},0)
-        `);
+        .duration(duration)
+        .attr('transform', d => `translate(${d.y},${d.x})`);
 
-    // Переход для кругов
-    nodeUpdate.select('circle')
+    // Обновляем круги
+    nodeUpdate.select('circle.node')
         .attr('r', 10)
-        .style("fill", d => d._children ? "lightsteelblue" : "#fff");
+        .style('fill', d => d._children ? "lightsteelblue" : "#fff")
+        .attr('cursor', 'pointer');
 
-    // Удаление старых узлов
+    // Удаляем узлы
     const nodeExit = node.exit().transition()
-        .duration(750)
-        .attr("transform", d => `
-            rotate(${(source.x * 180 / Math.PI - 90)})
-            translate(${source.y},0)
-        `)
+        .duration(duration)
+        .attr('transform', d => `translate(${source.y},${source.x})`)
         .remove();
 
     nodeExit.select('circle')
@@ -212,57 +164,47 @@ function update(source) {
 
     // Связи
     const link = svg.selectAll('path.link')
-        .data(links, d => d.target.id);
+        .data(links, d => d.id);
 
-    // Входные связи
+    // Входим в новые связи
     const linkEnter = link.enter().insert('path', "g")
-        .attr("class", "link")
+        .attr('class', 'link')
         .attr('d', d => {
-            const o = {x: source.x0, y: source.y0};
+            const o = { x: source.x0, y: source.y0 };
             return diagonal(o, o);
         });
 
-    // Объединение входных и обновленных связей
+    // Обновляем позиции связей
     const linkUpdate = linkEnter.merge(link);
 
-    // Переход связей
     linkUpdate.transition()
-        .duration(750)
-        .attr('d', d => diagonal(d.source, d.target));
+        .duration(duration)
+        .attr('d', d => diagonal(d, d.parent));
 
-    // Удаление старых связей
+    // Удаляем связи
     const linkExit = link.exit().transition()
-        .duration(750)
+        .duration(duration)
         .attr('d', d => {
-            const o = {x: source.x, y: source.y};
+            const o = { x: source.x, y: source.y };
             return diagonal(o, o);
         })
         .remove();
 
-    // Сохранение старых позиций
+    // Сохраняем позиции для последующей анимации
     nodes.forEach(d => {
         d.x0 = d.x;
         d.y0 = d.y;
     });
 
-    // Функция для построения связей
+    // Функция для рисования связей
     function diagonal(s, d) {
-        const path = `
-            M ${project(s.x, s.y)}
-            C ${project(s.x, (s.y + d.y) / 2)}
-              ${project(d.x, (s.y + d.y) / 2)}
-              ${project(d.x, d.y)}
-        `;
-        return path;
+        return `M ${s.y} ${s.x}
+                C ${(s.y + d.y) / 2} ${s.x},
+                  ${(s.y + d.y) / 2} ${d.x},
+                  ${d.y} ${d.x}`;
     }
 
-    // Функция проекции углов и расстояний
-    function project(x, y) {
-        const angle = (x - Math.PI / 2);
-        return [y * Math.cos(angle), y * Math.sin(angle)];
-    }
-
-    // Функция обработки клика
+    // Обработчик клика по узлу
     function click(event, d) {
         if (d.children) {
             d._children = d.children;
@@ -273,31 +215,4 @@ function update(source) {
         }
         update(d);
     }
-
-    // Создание tooltip
-    const tooltip = d3.select("body").append("div")
-        .attr("class", "tooltip");
-
-    // Функции для показа и скрытия tooltip
-    function mouseover(event, d) {
-        tooltip.transition()
-            .duration(200)
-            .style("opacity", .9);
-        tooltip.html(`<strong>${d.data.name}</strong>`)
-            .style("left", (event.pageX + 10) + "px")
-            .style("top", (event.pageY - 28) + "px");
-    }
-
-    function mouseout(event, d) {
-        tooltip.transition()
-            .duration(500)
-            .style("opacity", 0);
-    }
-
-    // Инициализация корневого узла
-    root.x0 = Math.PI / 2;
-    root.y0 = 0;
-
-    // Переменная для уникальных ID узлов
-    let i = 0;
 }
